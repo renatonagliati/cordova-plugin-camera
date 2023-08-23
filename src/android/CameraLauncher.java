@@ -465,7 +465,8 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             }
             // create new file handle to get full resolution crop
             croppedFilePath = createCaptureFile(this.encodingType, System.currentTimeMillis() + "").getAbsolutePath();
-            croppedUri = Uri.parse(croppedFilePath);
+            //croppedUri = Uri.parse(croppedFilePath);
+            croppedUri = picUri;
             cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("output", croppedUri);
@@ -500,7 +501,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         ExifHelper exif = new ExifHelper();
 
         String sourcePath = (this.allowEdit && this.croppedUri != null) ?
-                this.croppedFilePath :
+                this.croppedUri.toString() :
                 this.imageFilePath;
 
         if (this.encodingType == JPEG) {
